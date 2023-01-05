@@ -1,0 +1,58 @@
+<apex:page>
+    <div>
+    <b>Employee Details Entered in LWC</b> <p/> 
+ 
+    Name Entered : <input type="text" id="name" /> <p/> 
+    Phone Entered : <input type="text" id="phone" /><p/>  
+    City Entered : <input type="text" id="city" /><p/> 
+
+    <button onclick="Submit()">Submit</button><br/>
+    <button onclick="Subscribe()">Subscribe</button>&nbsp;&nbsp; 
+    <button onclick="UnSubscribe()">UnSubscribe</button>&nbsp;&nbsp;
+
+   <p>Enter Message :</p>
+   <label id="entermsg" />
+    </div>
+
+ <script>
+
+    var SAMPLEMC = "{!$MessageChannel.PrafulmsgChannel__c}";
+    var subscriptiontoMC;
+
+    function Submit()
+    {
+        const message = {
+
+            Name : document.getElementById('name').value,
+            Phone : document.getElementById('phone').value,
+            City : document.getElementById('city').value,
+            sourcesystem :"Visualforce Page"
+                        };
+
+    sforce.one.publish(SAMPLEMC,message);
+    } 
+
+    function displayMessage(message)
+    {
+      var textLabel = document.querySelector("#entermsg");
+      textLabel.innerHTML = message ? JSON.stringify(message,null,'\t') : 'no message payload';
+    }
+
+    function Subscribe()
+    {
+        if(!subscriptiontoMC)
+        {
+            subscriptiontoMC   = sforce.one.subscribe(SAMPLEMC,displayMessage);
+        }
+    }
+
+    function UnSubscribe()
+    {
+        if(subscriptiontoMC)
+        {
+           sforce.one.unsubscribe(subscriptiontoMC);
+           subscriptiontoMC = null; 
+        }
+    }
+</script>    
+</apex:page>

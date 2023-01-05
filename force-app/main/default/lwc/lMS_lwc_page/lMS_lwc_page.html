@@ -1,0 +1,20 @@
+<template>
+    <lightning-card title="Employee Details" icon-name="custom:custom11">
+        <div>
+      <p>LWC Component</p>
+  
+      <lightning-input type="text" label="Name" value={name} onchange={handleName}></lightning-input>
+      <lightning-input type="text" label="Phone" value={phone} onchange={handlePhone}></lightning-input>
+      <lightning-input type="text" label="City" value={city} onchange={handleCity}></lightning-input>
+    <lightning-button label="Submit" onclick={submit} ></lightning-button>
+        </div>
+  
+       <div>
+     <lightning-button label="Subscribe" onclick={subscribe}></lightning-button>&nbsp;&nbsp;
+     <lightning-button label="UnSubscribe" onclick={unsubscribe}></lightning-button>
+      <p>Message : </p> 
+      <lightning-formatted-text value={receiveMessage}></lightning-formatted-text>
+      </div> 
+   
+    </lightning-card>  
+  </template>

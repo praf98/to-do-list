@@ -1,0 +1,7 @@
+<template>
+    <lightning-card title="Lwc Impression update">
+        <lightning-input label="Enter your Search text" onchange={inputext}></lightning-input>
+        <lightning-datatable key-field="Id" data={rup.data} columns={col} onsave={handleSave} draft-values={draftValues}></lightning-datatable>
+    </lightning-card>
+
+</template>
