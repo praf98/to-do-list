@@ -1,0 +1,35 @@
+/*
+h3{
+    position: relative;
+    animation: mmove 2s ease-in-out infinite;
+}
+
+@keyframes mmove {
+    from {left: 0px;}
+    to {left: 500px;}
+  }    
+
+h2 {
+    position: relative;
+    animation: mymove 5s ease-in-out infinite;
+  }
+  
+  @keyframes mymove {
+    from {top: 0px;}
+    to {top: 10px;}
+  }
+*/
+
+h2{
+    position: relative;
+    animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+    0%, 100%{
+        transform: scaleY(-15deg) translate(0,-20px);
+    }
+    50%{
+        transform: scaleY(-15deg) translate(0,20px);
+    }
+}

@@ -1,0 +1,8 @@
+<template>
+    <lightning-card title="Search Account">
+       <lightning-formatted-text ></lightning-formatted-text>
+        <lightning-button label="Search" variant="brand" onclick={searchme}></lightning-button>
+        <lightning-input label="Limit" onchange={limitme}></lightning-input>
+        <lightning-datatable hide-checkbox-column key-field="Id" data={mydata} columns={colmm} onrowaction={rowaction} ></lightning-datatable>
+    </lightning-card>
+</template>

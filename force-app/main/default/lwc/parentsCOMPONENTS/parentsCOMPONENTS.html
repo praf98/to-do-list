@@ -1,0 +1,33 @@
+<template>
+   <lightning-layout>
+    <lightning-layout-item size="4">
+            <c-lwcomponents onevnt={evnt}></c-lwcomponents>
+    </lightning-layout-item>
+    <lightning-layout-item size="8">
+<lightning-card title="Questions">
+           <lightning-accordion   onsectiontoggle={handleToggleSection}>
+            <template for:each={data} for:item="bd">
+                <div key={bd.id}  >
+                    <lightning-accordion-section name={bd.Id} label= {bd.RFP_Question_Text__c} >
+                          <lightning-combobox
+                                   label='Compliance Response'
+                                   options={options}
+                                   onchange={handleChange}
+
+                          ></lightning-combobox>
+                          <br>
+                          <br>
+                          <lightning-input-rich-text label="Response Text" required label-visible="true" onchange={reponsetext} ></lightning-input-rich-text>
+                          <br>
+                          <br>
+                          <lightning-button label="Save response" variant="brand" onclick={saverep} ></lightning-button>
+                    </lightning-accordion-section> 
+                </div> 
+              </template>
+          </lightning-accordion>
+ 
+
+</lightning-card>
+    </lightning-layout-item>
+   </lightning-layout>
+</template>
