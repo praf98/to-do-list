@@ -1,7 +1,7 @@
 <template>
     <lightning-card title="Search Knowledge">
-        <lightning-input label="Search" onchange={searchME}>
+        <lightning-input label="Search" onchange={searchME}  class="slds-p-around_small">
         </lightning-input>
-        <lightning-datatable hide-checkbox-column key-field="Id" data={kB} columns={kBcol} onrowaction={nav}></lightning-datatable>
+        <lightning-datatable hide-checkbox-column key-field="Id" data={kB} columns={kBcol} onrowaction={nav} padding="around-small"></lightning-datatable>
     </lightning-card>
 </template>

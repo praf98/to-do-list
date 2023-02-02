@@ -1,0 +1,36 @@
+<template>
+<lightning-card  title="Question & Answer List">
+    <lightning-combobox
+            label="Display Record"
+            value={value}
+            placeholder="Select Progress"
+            options={options}
+            onchange={handleChange} class="slds-size_1-of-5 slds-p-left_x-small" >
+        </lightning-combobox>
+        <template for:each={data} for:item="data" >
+                <div key={data.Id}>          
+                <lightning-card title="Question">  
+                    <lightning-formatted-text value={data.RFP_Question_Text__c} ></lightning-formatted-text>                    
+                    <lightning-card title="Answer">
+                     <!--   <template for:each={dataAns} for:item="dataAns">
+                        <div key={dataAns.Id}>
+                            <lightning-input label={dataAns.Title__c} data-id={dataAns.Id} checked={dataAns.isChecked} type="checkbox" value={dataAns.Id}  class="slds-p-left_small"></lightning-input>
+                            <div class="slds-p-left_large">
+                                <lightning-formatted-rich-text value={dataAns.Procedure_Steps__c} class="slds-p-around_small"></lightning-formatted-rich-text> 
+                              
+                            </div>
+                            </div>
+                       </template> -->
+                       <lightning-datatable
+                          key-field="id" 
+                          data={dataAns} 
+                          columns={columns} 
+                          onrowaction={handlerowAction}>
+                        </lightning-datatable>
+                   </lightning-card>
+                </lightning-card>  
+            </div>
+        </template>
+       
+</lightning-card>
+</template>

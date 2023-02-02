@@ -1,9 +1,11 @@
 import { api, LightningElement, wire } from 'lwc';
 import getMethod from '@salesforce/apex/knowledgeBase.getMethod';
 import { NavigationMixin } from 'lightning/navigation';
+import pubshub from 'c/pubsub';
 
 const actions = [
-    { label: 'View', name: 'view' }
+    { label: 'View', name: 'view' },
+    { label: 'Select', name: 'Select' }
  ];
 
 const col =[
@@ -19,6 +21,7 @@ export default class KnowledgeBase extends NavigationMixin (LightningElement){
     kbinput;
     kB;
     record;
+    
 
     @api recordId;  
 
@@ -29,8 +32,20 @@ export default class KnowledgeBase extends NavigationMixin (LightningElement){
     @wire (getMethod,{text:'$kbinput'})
     kBB({data, error}){
         if(data){
+            
+            /*var tempContact=JSON.parse(JSON.stringify(data));
+            for(var i=0; i<tempContact.length; i++)
+            {
+                var newcontact=tempContact[i]['Id'];
+            console.log(newcontact);
+            //console.log('the list of Id '+JSON.parse(data));
+           
+            }*/
             this.kB = data;
-        }else if(error){
+
+            
+            
+     }else if(error){
             console.error(error);
         }
     }
@@ -39,9 +54,9 @@ export default class KnowledgeBase extends NavigationMixin (LightningElement){
         const actionName = event.detail.action.name;
 
         const row = event.detail.row;
-
+        
         this.recordId = row.Id;
-
+         //  console.log('the row id you get  :'+ row.Title__c);
         switch (actionName) {
 
             case 'view':
@@ -60,6 +75,11 @@ export default class KnowledgeBase extends NavigationMixin (LightningElement){
 
                 });
 
+                break;
+                case 'Select':
+                  // console.log(row.Procedure_Steps__c);
+                    pubshub.fire('eventname' ,row.Procedure_Steps__c);  
+     
                 break;
             }
     }

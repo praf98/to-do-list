@@ -2,8 +2,8 @@ import { LightningElement, api } from 'lwc';
 import {loadScript} from "lightning/platformResourceLoader";
 import docxImport from "@salesforce/resourceUrl/docx";
 import contactGrab from "@salesforce/apex/ContactGrabber.getAllRelatedContacts";
-export default class movingWalaLWC extends LightningElement {
-    @api recordId;
+export default class HelloWorld extends LightningElement {
+  @api recordId;
     downloadURL;
     _no_border = {top: {style: "none", size: 0, color: "FFFFFF"},
 	bottom: {style: "none", size: 0, color: "FFFFFF"},

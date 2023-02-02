@@ -1,0 +1,41 @@
+<template>
+    
+       
+       <lightning-card title="RFPs Details Page">
+       
+         <lightning-accordion onsectiontoggle={ontoggleSelection}>
+            <lightning-button label="Create RFP" variant="brand" onclick={Createhandler} class="slds-float_right slds-p-right_small" ></lightning-button>  
+            <template for:each={data} for:item="bd"> 
+               <div key={bd.Id}>
+                <lightning-accordion-section   name={bd.Id} label={bd.Name}>
+
+                    <lightning-record-view-form record-id={bd.Id} object-api-name="RFP__c">
+                        
+                    <span>   <lightning-output-field field-name="Name"> </lightning-output-field>  <lightning-output-field field-name="Opportunity__c"> </lightning-output-field></span> 
+                       
+                    </lightning-record-view-form>
+                  <!--  <b>Name:</b> &nbsp; {bd.Name}   <p></p>
+                    <b>Opportunity:</b> &nbsp; {bd.Opportunity__r.Name} <p></p>
+                    <b>Compliance Response:</b> &nbsp;{bd.Compliance_Response__c} <p></p>-->
+                    <p></p>
+                    <p></p>
+                    <p></p>
+
+                       <lightning-layout >
+                      <!--  <lightning-button 
+                           label="Select" value={bd.Id}
+                           onclick={selectme} 
+                          class="slds-p-around_small">
+                        </lightning-button>  -->
+                       </lightning-layout>
+                   <p></p> 
+                   <p></p> 
+                   <p></p>        
+                </lightning-accordion-section>
+               </div>
+            </template>
+         </lightning-accordion>
+    
+    </lightning-card>
+
+</template>

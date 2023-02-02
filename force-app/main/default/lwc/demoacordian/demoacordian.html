@@ -1,0 +1,25 @@
+<template>
+  <lightning-layout>
+      <lightning-layout-item  size="5">
+          <!-- <c-lwcomponents onevnt={evnt}></c-lwcomponents> -->
+      </lightning-layout-item>
+      <lightning-layout-item  size="7">
+          <lightning-card title="Questions ">
+        <template for:each={data} for:item="data">
+          <div key={data.Id}>
+                
+                <b> Account>>>>>>>{data.Name}  </b>
+          </div>  
+        </template>
+          <template for:each={data.Contacts} for:item="condata">
+          <div key={condata.Id} >
+                 
+                <i>{condata.LastName} >>>>>Contact </i>   
+          </div>  
+          
+      
+        </template>
+          </lightning-card>
+      </lightning-layout-item>
+  </lightning-layout>
+</template>

@@ -1,0 +1,42 @@
+<template>
+    <lightning-layout>
+        <lightning-layout-item  size="5">
+             <c-lwcomponents onevnt={evnt}></c-lwcomponents> 
+        </lightning-layout-item>
+        <lightning-layout-item  size="7">
+            <lightning-card title="Questions ">
+
+                <lightning-accordion  onsectiontoggle={handleToggleSection}   >
+                          <template for:each={data} for:item="bd" for:index="pq">
+                            <div key={bd.id}  >
+                               <lightning-accordion-section name={bd.Id} label= {bd.RFP_Question_Text__c} >
+                                <b>ANSWER
+                                   
+                            </b> 
+                            <template if:true={processing}>
+                                <lightning-spinner alternative-text="Loading..."  size="small">
+                                 </lightning-spinner>
+                             </template>
+                                <template for:each={QuestionData} for:item="data">
+                                     <div key={data.Id}>
+                                             
+                                             </div>
+                                              
+                                        <template for:each={data.Knowledges__r} for:item="bd">
+                                          
+                                            <div key={bd.Id}>
+                                                
+                                                  {bd.Title__c}
+                                            </div>
+                                        </template>
+                                    
+                                    </template>
+                                </lightning-accordion-section> 
+                            </div> 
+                          </template>
+                   </lightning-accordion>
+                   
+            </lightning-card>
+        </lightning-layout-item>
+    </lightning-layout>
+</template>
