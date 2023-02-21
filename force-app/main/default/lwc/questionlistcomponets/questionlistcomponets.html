@@ -46,9 +46,11 @@
       <div key={item.id}>
         <div class="slds-p-around_small">Question: {item.name}</div>
         <lightning-card title="Answer">
+          <lightning-input label="Search Answer" type="search" onchange={Serarchme} class="slds-p-around_small"></lightning-input>
+          <!--for answer Data-->
         <template for:each={answerdata} for:item="answerdata"> 
           <p key={answerdata.Id}> 
-            
+
                <lightning-input 
                    label={answerdata.Title__c} 
                  data-id={answerdata.Id} 

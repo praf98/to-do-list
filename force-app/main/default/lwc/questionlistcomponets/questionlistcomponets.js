@@ -1,10 +1,11 @@
-import { LightningElement,track } from 'lwc';
+import { LightningElement,track ,wire} from 'lwc';
 
 import myMethod from '@salesforce/apex/getRfpsRecords.questionList';
 import createRfpRecord from '@salesforce/apex/getRfpsRecords.createRfpRecord';
 import getAnswer from '@salesforce/apex/getqestionAnswer.getAnswer';
 import Createquestion from '@salesforce/apex/forjuctionanswer.Createquestion';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { NavigationMixin } from 'lightning/navigation';
 import pubshub from 'c/pubsub';
 
 const col=[
@@ -12,7 +13,7 @@ const col=[
   { label: 'Title', fieldName: 'Title__c', type:'button', typeAttributes: {  label: { fieldName: 'Title__c' },name:'urlredirect',variant:'base'  }}
 ];
 
-export default class Questionlistcomponets extends LightningElement 
+export default class Questionlistcomponets extends NavigationMixin (LightningElement) 
 {   columns=col;
    @track message;
    isvisible=true;
@@ -26,6 +27,7 @@ export default class Questionlistcomponets extends LightningElement
     selectQdata=[];      
     @track answerID=[];    //remove the all value from array
     QuestioniDi;
+    serarch;             //Search answer
      QID=[];
 
 
@@ -36,7 +38,7 @@ export default class Questionlistcomponets extends LightningElement
     Selecctedvalue(event)
     {
            this.QID.push(event.target.value);
-           console.log(this.QID);
+          // console.log(this.QID);
     }
     selectAllCheckedOffActivities(event) 
     {  
@@ -44,10 +46,10 @@ export default class Questionlistcomponets extends LightningElement
       var id= JSON.parse(JSON.stringify(this.message));
       //console.log('the only one record Var Id '+ id.replace(/['"]+/g, ''))
         this.checkedBoxesIds = [...this.template.querySelectorAll('lightning-input')].filter(element => element.checked).map(element => element.dataset.id);
-       console.log('The checkbox id'+JSON.stringify(this.checkedBoxesIds));
+     //  console.log('The checkbox id'+JSON.stringify(this.checkedBoxesIds));
     
        this.checkedBoxname= [...this.template.querySelectorAll('lightning-input')].filter(element => element.checked).map(element =>({ name: element.name, id: element.dataset.id }));
-         console.log('this.checkedBoxname'+this.checkedBoxname);
+       //  console.log('this.checkedBoxname'+this.checkedBoxname);
       
 
         createRfpRecord({stringlist:this.checkedBoxesIds,recordi3:this.message.replace(/['"]+/g, '')})  // creating Rfp record using imperative method 
@@ -70,12 +72,15 @@ export default class Questionlistcomponets extends LightningElement
         this.dispatchEvent(evt);
         })
      }
-    newdatahelper()
-    {
-     console.log('The length of checkbox iD id'+this.checkedBoxesIds.length);
-    }
+   
                    //      onbutton click
 
+
+    Serarchme(event)
+    {
+      this.serarch=event.target.value;
+      console.log(event.target.value);
+    }
     savehandler(event)
     {
       this.QuestioniDi=event.target.name; 
@@ -83,6 +88,9 @@ export default class Questionlistcomponets extends LightningElement
       
       Createquestion({stringlist:this.answerID,recordiss:this.QuestioniDi})
       .then(result=>{
+
+            
+
         const evt = new ShowToastEvent({
           title:"Saved",
           message:"Record created Successfully !",
@@ -98,6 +106,13 @@ export default class Questionlistcomponets extends LightningElement
           });
       this.dispatchEvent(evt);
       })
+      this[NavigationMixin.Navigate]({
+        type: 'standard__objectPage',
+        attributes: {
+            objectApiName: 'RFP_Question_and_Answer__c',
+            actionName: 'list',
+        },
+    });
     
     }
 
@@ -123,13 +138,13 @@ export default class Questionlistcomponets extends LightningElement
         .then(result=>
         {
                  this.data=result;   
-                 console.log(this.data)  
+               //  console.log(this.data)  
         })
         .catch(error=>
         {
 
         })
-        getAnswer({})
+     /*  getAnswer({})
         .then(result=>
         {
                  this.answerdata=result;   
@@ -138,11 +153,22 @@ export default class Questionlistcomponets extends LightningElement
         .catch(error=>
         {
 
-        })
+        }) */
       
        
     }
-   
+   @wire (getAnswer,{search:'$serarch'})myfunction({error,data})
+                                                  {
+                                                    if(data)
+                                                    {  
+                                                      console.log('Wire data you get' +data);
+                                                      this.answerdata=data;  
+                                                    }
+                                                    else if(error)
+                                                    {
+                                                      error
+                                                    }
+                                                  }
  
   
    /* connectedCallback()

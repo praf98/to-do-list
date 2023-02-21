@@ -1,0 +1,19 @@
+<template>
+    <lightning-card title="Parent Components">
+        <lightning-input label="Set Starting Counter " class="slds-p-horizontal_small "
+          type="number"
+          min="0"
+          max="10000"
+          value={startcounter}
+          onchange={handlestartchnage}>
+        </lightning-input> 
+           <lightning-button label="Add to counter"
+                            variant="brand"
+                            onclick={addcounterhandler}
+                            class="slds-p-around_small " 
+                            >
+           </lightning-button>
+           <!--child components calling-->
+    </lightning-card>
+    <c-parwntchildchild counter={startcounter}></c-parwntchildchild>
+</template>
